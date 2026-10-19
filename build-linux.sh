@@ -32,6 +32,8 @@ fi
 
 # webkit2_41: distributions now ship WebKitGTK 4.1 only; Wails defaults to 4.0.
 "$wails" build -tags webkit2_41
+# Wails writes the generated bindings as executable on Linux; they are committed as 644.
+find frontend/wailsjs -type f -exec chmod 644 {} +
 
 # The helper has no Linux backend until cmd/myrdp-session has Linux source.
 if [[ $(go list -e -f '{{len .GoFiles}}' ./cmd/myrdp-session) == 0 ]]; then
