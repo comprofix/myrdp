@@ -1,4 +1,4 @@
-//go:build !windows
+//go:build !windows && !linux
 
 package sessions
 
@@ -7,7 +7,7 @@ import (
 	"os/exec"
 )
 
-// The Linux backend (FreeRDP embedded with /parent-window) is not built yet.
+// Sessions are embedded on Windows and Linux only.
 const helperName = "myrdp-session"
 
 func mainWindow() (uintptr, error) {
