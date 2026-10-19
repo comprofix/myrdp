@@ -1,4 +1,7 @@
+# Build output (wails build, build-*.sh / build-windows.ps1, wails dev)
 build/bin/
+
+# Frontend
 frontend/node_modules/
 frontend/dist/
 frontend/package.json.md5
@@ -7,3 +10,22 @@ frontend/package.json.md5
 CLAUDE.md
 PLAN.md
 DESIGN.md
+
+npm-debug.log*
+
+# Go
+*.test
+*.out
+coverage.*
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*~
+
+# Operating systems
+.DS_Store
+Thumbs.db
+desktop.ini
+
