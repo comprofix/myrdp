@@ -9,7 +9,7 @@ Licensed under the GNU General Public License, version 3 or later. See `LICENSE`
 Requires Go, Node.js and the Wails v2 CLI (`go install github.com/wailsapp/wails/v2/cmd/wails@latest`).
 
 ```
-.\build.ps1
+.\build-windows.ps1
 ```
 
 This produces `build\bin\myrdp.exe` and `build\bin\myrdp-session.exe`. Keep them side by side: the main
