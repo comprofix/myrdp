@@ -10,6 +10,8 @@ import (
 // Sessions are embedded on Windows and Linux only.
 const helperName = "myrdp-session"
 
+func checkBackend() error { return nil }
+
 func mainWindow() (uintptr, error) {
 	return 0, errors.New("sessions are not supported on this platform yet")
 }

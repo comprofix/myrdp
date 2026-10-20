@@ -248,7 +248,7 @@ func (a *App) Connect(nodeID string, b sessions.Bounds) (*SessionInfo, error) {
 	}
 	id, err := a.sessions.Open(cfg, b)
 	if err != nil {
-		return nil, err
+		return nil, a.showMissing(err)
 	}
 	return &SessionInfo{ID: id, Title: cfg.Name, NodeID: nodeID}, nil
 }
@@ -269,9 +269,23 @@ func (a *App) QuickConnect(target string, b sessions.Bounds) (*SessionInfo, erro
 	}
 	id, err := a.sessions.Open(cfg, b)
 	if err != nil {
-		return nil, err
+		return nil, a.showMissing(err)
 	}
 	return &SessionInfo{ID: id, Title: cfg.Name}, nil
+}
+
+// showMissing opens a message box when something the program needs isn't
+// installed. The error is still returned, so it is logged in Messages too.
+func (a *App) showMissing(err error) error {
+	var missing *sessions.MissingError
+	if errors.As(err, &missing) {
+		runtime.MessageDialog(a.ctx, runtime.MessageDialogOptions{
+			Type:    runtime.ErrorDialog,
+			Title:   "Missing software",
+			Message: missing.Error(),
+		})
+	}
+	return err
 }
 
 func (a *App) SetSessionBounds(id string, b sessions.Bounds, visible bool) {

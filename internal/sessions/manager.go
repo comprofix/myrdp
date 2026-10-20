@@ -27,6 +27,13 @@ type Bounds struct {
 	H int `json:"h"`
 }
 
+// MissingError reports that something sessions need isn't installed. Its
+// message says what is missing and how to get it.
+type MissingError struct{ Err error }
+
+func (e *MissingError) Error() string { return e.Err.Error() }
+func (e *MissingError) Unwrap() error { return e.Err }
+
 type proc struct {
 	cmd     *exec.Cmd
 	stdin   io.WriteCloser
@@ -67,6 +74,11 @@ func helperPath() (string, error) {
 
 // Open starts a session and returns its ID.
 func (m *Manager) Open(cfg session.Config, b Bounds) (string, error) {
+	// Checked on every connect, so installing a missing piece while the
+	// program is open works without a restart.
+	if err := checkBackend(); err != nil {
+		return "", &MissingError{Err: err}
+	}
 	helper, err := helperPath()
 	if err != nil {
 		return "", err

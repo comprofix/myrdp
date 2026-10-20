@@ -137,9 +137,18 @@ import (
 	"fmt"
 	"os"
 	"os/exec"
+
+	"myrdp/internal/freerdp"
 )
 
 const helperName = "myrdp-session"
+
+// checkBackend reports a missing or unsuitable FreeRDP before a helper or a
+// tab is created.
+func checkBackend() error {
+	_, err := freerdp.Find()
+	return err
+}
 
 // mainWindow returns the X11 window of this process's main window, which the
 // session windows are embedded into.

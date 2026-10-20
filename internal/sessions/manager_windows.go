@@ -13,6 +13,9 @@ import (
 
 const helperName = "myrdp-session.exe"
 
+// checkBackend has nothing to check: the RDP control ships with Windows.
+func checkBackend() error { return nil }
+
 var (
 	user32                       = windows.NewLazySystemDLL("user32.dll")
 	procEnumWindows              = user32.NewProc("EnumWindows")
