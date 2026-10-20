@@ -36,7 +36,7 @@ fi
 find frontend/wailsjs -type f -exec chmod 644 {} +
 
 # The helper has no Linux backend until cmd/myrdp-session has Linux source.
-if [[ $(go list -e -f '{{len .GoFiles}}' ./cmd/myrdp-session) == 0 ]]; then
+if [[ -z $(go list -e -f '{{if or .GoFiles .CgoFiles}}yes{{end}}' ./cmd/myrdp-session) ]]; then
     echo 'Skipped build/bin/myrdp-session: the session helper has no Linux backend yet, so sessions will not start.'
     echo 'Built build/bin/myrdp'
     exit 0
