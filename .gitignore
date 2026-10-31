@@ -2,3 +2,8 @@ build/bin/
 frontend/node_modules/
 frontend/dist/
 frontend/package.json.md5
+
+# Local notes for Claude Code
+CLAUDE.md
+PLAN.md
+DESIGN.md
